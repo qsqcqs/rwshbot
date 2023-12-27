@@ -4,7 +4,7 @@ slugcats = ['Survivor','Monk','Hunter','Artificer','Gourmand','Rivulet','Spearma
 iterators = ['Five Pebbles','Looks to the Moon','Seven Red Suns','No Significant Harassment', 'Sliver of Straw', 'Unparalleled Innocence', 'Chasing Wind']
 flags = ['gayflag', 'lesbianflag', 'queerflag', 'straightflag']
 dumbshitlist=['Survivor','Monk','Hunter','Artificer','Gourmand','Rivulet','Spearmaster','Saint','Sofanthiel','Nightcat','Five Pebbles','Looks to the Moon','Seven Red Suns','No Significant Harassment', 'Sliver of Straw', 'Unparalleled Innocence', 'Chasing Wind']
-
+from math import sqrt
 
 import os
 import discord
@@ -96,6 +96,26 @@ async def on_message(message):
             imageoutput.save("output.png")
             await message.channel.send(f"{char1.lower()}x{char2.lower()}", file=discord.File('output.png'))
             return
-        
+        if k[0:2]=="sd":
+            k=k[3:]
+            usw=eval(open("thrpre.txt","r").read())
+            x=0
+            cn=0
+            while x<len(usw):
+                cn=cn+usw[x][1]
+                x=x+1
+            cn=cn/len(usw)
+            x=0
+            ck=0
+            while x<len(usw):
+                ck=ck+(usw[x][1]-cn)**2
+                x=x+1
+            x=0
+            while x<len(usw):
+                if k.find(usw[x][0]) != -1:
+                    i=x
+                x=x+1
+            
+            await message.channel.send((usw[i][1]-cn)/sqrt(ck/len(usw)))
 client.run(TOKEN)
 
