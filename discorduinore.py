@@ -36,7 +36,7 @@ async def on_message(message):
         print(k)
         if k == "help":
             print(dir(message))
-            await message.channel.send("uhh...like idk the commands")
+            await message.channel.send("\`inv!who:replaces instances of who with char\ninv!who who did it -> artificer did it\ninv!www:who would win\ninv!www someone vs a cat -> (some garbage here) a cat would win\ninv!crackship:generates a ship\ninv!crackship lesbian scug -> someonexsomeone with a png\`")
             return
         if k[0:3] == "who":
             k=k[4:]+" "
@@ -95,7 +95,7 @@ async def on_message(message):
             imageoutput.paste(img1, (0, 0), img1)
             imageoutput.save("output.png")
             await message.channel.send(f"{char1.lower()}x{char2.lower()}", file=discord.File('output.png'))
-
-
+            return
+        
 client.run(TOKEN)
 
