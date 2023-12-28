@@ -61,12 +61,13 @@ async def on_message(message):
                 await message.channel.send(f"In a fight betweeen {k[:s].lower()} and {k[s+4:].lower()}. {k[s+4:].lower()} would win")
         if k[0:9] == "crackship":
             k=k[10:]
-            soi=random.randint(0,1)
+            # soi=random.randint(0,1)
+            soi=0
             flag=random.randint(0,3)
             if k.find("scug")!=-1:
                 soi=0
-            if k.find("iter")!=-1:
-                soi=1
+            # if k.find("iter")!=-1:
+            #     soi=1
             if k.find("straight")!=-1:
                 flag=3
             if k.find("lesbian")!=-1:
