@@ -59,16 +59,19 @@ async def on_message(message):
                 await message.channel.send(f"In a fight betweeen {k[:s].lower()} and {k[s+4:].lower()}. {k[:s].lower()} would win")
             else:
                 await message.channel.send(f"In a fight betweeen {k[:s].lower()} and {k[s+4:].lower()}. {k[s+4:].lower()} would win")
-        if k[0:9] == "crackship":
+        if k[0:9].find("crackship") !=-1:
+            print("a")
             k=k[10:]
-            # soi=random.randint(0,1)
-            soi=0
+            soi=random.randint(0,1)
+            
             flag=random.randint(0,3)
             if k.find("scug")!=-1:
                 soi=0
-            # if k.find("iter")!=-1:
-            #     soi=1
+            if k.find("iter")!=-1:
+                soi=1
             if k.find("straight")!=-1:
+                flag=3
+            if k.find("ally")!=-1:
                 flag=3
             if k.find("lesbian")!=-1:
                 flag=1
@@ -77,20 +80,102 @@ async def on_message(message):
             if k.find("queer")!=-1:
                 flag=2
             i=["gayflag","lesbianflag","queerflag","straightflag"][flag]
+            
+            uhh=random.randint(0,len(lis)-1)
+            char1=lis[uhh]
+            kd=1
+            if uhh==0 or uhh==1:
+                while kd==0 or kd==1:
+                    kd=random.randint(0,len(lis)-1)
+
+            chrlist=[]
+            print(k)
+            if k.lower().find("surv")!=-1:
+                chrlist.append(0)
+                soi=0
+            if k.lower().find("pebbles")!=-1:
+                chrlist.append(0)
+                soi=1
+            if k.lower().find("monk")!=-1:
+                chrlist.append(1)
+                soi=0
+            if k.lower().find("moon")!=-1:
+                chrlist.append(1)
+                soi=1
+            if k.lower().find("hunt")!=-1:
+                chrlist.append(2)
+                soi=0
+            if k.lower().find("suns")!=-1:
+                chrlist.append(2)
+                soi=1
+            if k.lower().find("arti")!=-1:
+                chrlist.append(3)
+                soi=0
+            if k.lower().find("sig")!=-1:
+                chrlist.append(3)
+                soi=1
+            if k.lower().find("sliver")!=-1:
+                chrlist.append(4)
+                soi=1
+            if k.lower().find("gour")!=-1:
+                chrlist.append(4)
+                soi=0
+            if k.lower().find("unpar")!=-1:
+                chrlist.append(5)
+                soi=1
+            if k.lower().find("riv")!=-1:
+                chrlist.append(5)
+                soi=0
+            if k.lower().find("wind")!=-1:
+                chrlist.append(6)
+                soi=1
+            if k.lower().find("spear")!=-1:
+                chrlist.append(6)
+                soi=0
+            if k.lower().find("saint")!=-1:
+                chrlist.append(7)
+                soi=0
+            if k.lower().find("sofanthiel")!=-1:
+                chrlist.append(8)
+                soi=0
+            if k.lower().find("inv")!=-1:
+                chrlist.append(8)
+                soi=0
+            if k.lower().find("enot")!=-1:
+                chrlist.append(8)
+                soi=0
+            if k.lower().find("nightcat")!=-1:
+                chrlist.append(9)
+                soi=0
+            if len(chrlist)>0:
+                char1=lis[chrlist[0]]
             if soi==0:
                 lis=slugcats
             if soi==1:
                 lis=iterators
-            uhh=random.randint(0,len(lis)-1)
-            char1=lis[uhh]
-            if uhh==0 or uhh==1:
-            kd=1
-                while kd==0 or kd==1:
-            kd=random.randint(0,len(lis)-1)
+            if chrlist==[]:
+                uhh=random.randint(0,len(lis)-1)
+                char1=lis[uhh]
             char2=lis[kd]
             while char2==char1:
                 char2=lis[random.randint(0,len(lis-1))]
             print(f"1{char2.lower()}")
+            if len(chrlist)>0:
+                char2==lis[chrlist[1]]
+
+            if len(chrlist)>1:
+                char2=lis[chrlist[1]]
+
+
+            
+            if len(chrlist)>2:
+                if chrlist[0]==0:
+                    if chrlist[1]==1:
+                        await message.channel.send("no, wtf")
+                        return
+            
+
+
             img1 = img1 = Image.open(f'1{char1.lower()}.png')
             
             img2 = Image.open(f'2{char2.lower()}.png')
@@ -100,7 +185,7 @@ async def on_message(message):
             imageoutput.paste(img2, (0,0), img2)
             imageoutput.paste(img1, (0, 0), img1)
             imageoutput.save("output.png")
-            await message.channel.send(f"{char1.lower()}x{char2.lower()}", file=discord.File('output.png'))
+            await message.channel.send(f"{char1.lower()} x {char2.lower()}", file=discord.File('output.png'))
             return
         if k[0:2]=="sd":
             k=k[3:]
