@@ -81,8 +81,13 @@ async def on_message(message):
                 lis=slugcats
             if soi==1:
                 lis=iterators
-            char1=lis[random.randint(0,len(lis)-1)]
-            char2=lis[random.randint(0,len(lis)-1)]
+            uhh=random.randint(0,len(lis)-1)
+            char1=lis[uhh]
+            if uhh==0 or uhh==1:
+            kd=1
+                while kd==0 or kd==1:
+            kd=random.randint(0,len(lis)-1)
+            char2=lis[kd]
             while char2==char1:
                 char2=lis[random.randint(0,len(lis-1))]
             print(f"1{char2.lower()}")
