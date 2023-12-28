@@ -36,7 +36,7 @@ async def on_message(message):
         print(k)
         if k == "help":
             print(dir(message))
-            await message.channel.send("\`inv!who:replaces instances of who with char\ninv!who who did it -> artificer did it\ninv!www:who would win\ninv!www someone vs a cat -> (some garbage here) a cat would win\ninv!crackship:generates a ship\ninv!crackship lesbian scug -> someonexsomeone with a png\`")
+            await message.channel.send("```inv!who:replaces instances of who with char\ninv!who who did it -> artificer did it\ninv!www:who would win\ninv!www someone vs a cat -> (some garbage here) a cat would win\ninv!crackship:generates a ship\ninv!crackship lesbian scug -> someone x someone with a png```")
             return
         if k[0:3] == "who":
             k=k[4:]+" "
@@ -81,12 +81,9 @@ async def on_message(message):
                 flag=2
             i=["gayflag","lesbianflag","queerflag","straightflag"][flag]
             
-            uhh=random.randint(0,len(lis)-1)
-            char1=lis[uhh]
-            kd=1
-            if uhh==0 or uhh==1:
-                while kd==0 or kd==1:
-                    kd=random.randint(0,len(lis)-1)
+            
+            
+            
 
             chrlist=[]
             print(k)
@@ -147,18 +144,21 @@ async def on_message(message):
             if k.lower().find("nightcat")!=-1:
                 chrlist.append(9)
                 soi=0
-            if len(chrlist)>0:
-                char1=lis[chrlist[0]]
+            
             if soi==0:
                 lis=slugcats
             if soi==1:
                 lis=iterators
+            if len(chrlist)>0:
+                char1=lis[chrlist[0]]
+            kd=1
+            
             if chrlist==[]:
                 uhh=random.randint(0,len(lis)-1)
                 char1=lis[uhh]
-            char2=lis[kd]
+            char2=lis[random.randint(0,len(lis)-1)]
             while char2==char1:
-                char2=lis[random.randint(0,len(lis-1))]
+                char2=lis[random.randint(0,len(lis)-1)]
             print(f"1{char2.lower()}")
             if len(chrlist)>0:
                 char2==lis[chrlist[1]]
