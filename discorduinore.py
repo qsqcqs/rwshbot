@@ -22,7 +22,7 @@ async def on_ready():
     await client.change_presence(status=discord.Status.online, activity=discord.Game(name="Rain World: Downpour Dating Sim"))
 
 @client.event
-async def on_message(on_message):
+async def on_message(message):
     k=str(message.content)
     
     if k.find("inv!") != -1:
@@ -30,7 +30,7 @@ async def on_message(on_message):
         nickname = ['Sofanthiel', '???', 'Inv', 'Enot', 'Paincat'][random.randint(0,4)]
         await message.guild.get_member(client.user.id).edit(nick=nickname)
         k=k[4:]
-        print(k)
+        
         if k == "help":
             print(dir(message))
             await message.channel.send("```inv!who:replaces instances of who with char\ninv!who who did it -> artificer did it\ninv!www:who would win\ninv!www someone vs a cat -> (some garbage here) a cat would win\ninv!crackship:generates a ship\ninv!crackship lesbian scug -> someone x someone with a png```")
@@ -236,17 +236,30 @@ async def on_message(on_message):
         if k[0:1].find('r')!=-1:
             exec(k[2:])
             return
-        if k[0:1].find('g')!=-1:
-            if k.find("github")!=-1:
-                isd=re.findall('<.*>',k)
-                isl=re.findall('{.*}',k)
-                sp=requests.get(f"https://raw.{isl[0][1:-1]}")
-                with open(isd[0][1:-1],'wb') as f:
-                    f.write(sp.content)
-                    f.close()
-            else:
-                sp=requests.get(f"https://{k[2:]}")
+        if k[0:2].find('dl')!=-1:
+            
+            #print(message.attachments[0].url)
+            await message.attachments[0].save(message.attachments[0].filename)
+            #with open(k[3:],'wb') as f:
+            #    f.write(bytes(requests.post(message.attachments[0].url).text, 'utf-8'))
+                
+            #    f.close()
             return()
+        # if k[0:1].find('g')!=-1:
+        #     if True:
+        #         isd=re.findall('<.*>',k)
+        #         isl=re.findall('{.*}',k)
+        #         print("ey")
+        #         print(f"{isl[0][1:-1]}")
+        #         print(isd)
+        #         sp=requests.get(f"{isl[0][1:-1]}")
+        #         with open(isd[0][1:-1],'wb') as f:
+        #             f.write(sp.content)
+        #             print('exit')
+        #             f.close()
+            
+                
+        #     return()
         if k[0:3].find('dir')!=-1:
             await message.channel.send(str(os.listdir())[1:-1].replace(', ','\n').replace('\'',''))
             return()
