@@ -1,0 +1,8 @@
+#!/bin/bash
+git clone https://github.com/qsqcqs/rwshbot
+cd rwshbot
+tar -xzv dumbshit.tar.gz
+a=`pwd`
+echo bot="python `$a`/discorduinore.py" >> ~/.bashrc
+echo need to install dependencies, can use something like yay or you can get packages from `$a`/dumbshit which is a venv
+echo need to add a .env file with a valid discord token
